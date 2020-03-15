@@ -7,6 +7,7 @@ const iconElem=document.querySelector(".weather-icon");
 const discriptionElem=document.querySelector(".temperature-description p");
 const locationElem=document.querySelector(".location p");
 
+//Creating an Object which Will Store the data we'll get from API request 
 weatherObj={
     temp:{
         value:"",
@@ -18,6 +19,7 @@ weatherObj={
     country:''
 };
 
+//Get the latitude and longitude of user's Current position 
 if("geolocation" in navigator){
     navigator.geolocation.getCurrentPosition(showPosition);
     console.log("no internet");
@@ -30,6 +32,7 @@ function showPosition(position){
     let lat=position.coords.latitude;
     let log=position.coords.longitude;
     console.log(lat +"\n" + log);
+    //Calling the function to get the data from API for the above Curent Possition
     getWeather(lat,log);
 }
 
@@ -52,6 +55,7 @@ function getWeather(lat,log){
             displayAll();
         })
 }
+//Display the realtime data on Webpage 
 function displayAll(){
     tempElem.innerHTML=`${weatherObj.temp.value}°<span>C</span>`;
     iconElem.innerHTML=`<img src="./icons/${weatherObj.iconElem}.png"/>`;
@@ -59,6 +63,7 @@ function displayAll(){
     locationElem.innerHTML=`${weatherObj.city} , ${weatherObj.country}`;
     console.log(weatherObj.iconElem);
 }
+//Added the Event Listener to Change the value from Celsius to Fahrenheit
 tempElem.addEventListener("click",function(){
     if(weatherObj.temp.unit=="C"){
         weatherObj.temp.unit="F";
